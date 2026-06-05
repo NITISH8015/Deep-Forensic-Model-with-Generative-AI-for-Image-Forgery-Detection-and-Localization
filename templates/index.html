@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ForgeVision | Image Forgery Detection</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="/project-doc" target="_blank" class="logo-wrap">
+    <img src="{{ url_for('static', filename='logo.png') }}" class="logo">
+    <span class="logo-text">ForgeVision</span>
+  </a>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#features">Features</a>
+    <a href="#feedback">Feedback</a>
+    {% if logged %}
+      <a href="/detect" class="btn">Compare</a>
+      <a href="/logout" class="btn danger">Logout</a>
+    {% else %}
+      <a href="/login" class="btn">Login</a>
+    {% endif %}
+  </div>
+</nav>
+<!-- HERO -->
+<section id="home" class="hero">
+  <h1 class="fade">Generative AI for Image Forgery
+Detection and Localization</h1>
+  <p class="fade delay">
+    Advanced Digital Image Forensic Analysis using AI
+  </p>
+
+  {% if logged %}
+    <div class="hero-buttons">
+
+      <!-- SINGLE IMAGE -->
+      <a href="/detect#single" class="hero-btn">
+        🔍 Single Image Detection
+      </a>
+
+      <!-- DUAL IMAGE -->
+      <a href="/detect#compare" class="hero-btn secondary">
+        ⚖ Compare Two Images
+      </a>
+
+    </div>
+  {% else %}
+    <a href="/login" class="hero-btn">Get Started</a>
+  {% endif %}
+</section>
+<!-- ABOUT -->
+<section id="about" class="section about-section">
+  <div class="about-card fade">
+    <h2>About ForgeVision</h2>
+    <p>
+ForgeVision is an intelligent Image Forgery Detection System designed to identify and analyze digital image manipulations with high accuracy. It helps users verify image authenticity by comparing an original image with a suspected forged version and visually highlighting tampered regions.
+The system combines Structural Similarity Index (SSIM) analysis, pixel-level difference mapping, heatmap visualization, and YOLO-based face localization to detect even subtle modifications such as face retouching, object insertion, background alteration, or image enhancement.
+ForgeVision not only detects forgery but also explains the results in a user-friendly manner, providing clear metrics like the number of edited regions, percentage of modified pixels, SSIM score, and a confidence level (Low / Medium / High Forgery). A downloadable forensic PDF report is generated automatically for documentation and verification purposes.
+This platform is suitable for digital forensics, media verification, academic research, journalism, and legal evidence validation, offering a reliable and transparent solution for image authenticity analysis.
+    </p>
+    <ul class="about-points">
+      <li>✔ SSIM-based structural analysis</li>
+      <li>✔ Pixel-level manipulation detection</li>
+      <li>✔ Heatmap visualization of edits</li>
+      <li>✔ YOLO face-only localization</li>
+      <li>✔ Region-wise forgery explanation</li>
+    </ul>
+  </div>
+</section>
+<!-- FEATURES -->
+<section class="section features-section fade" id="features">
+  <h2 class="section-title">Key Features</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <img src="/static/icons/ssim.png">
+      <h4>SSIM Analysis</h4>
+      <p>Detects deep structural changes between original and forged images.</p>
+    </div>
+    <div class="feature-card">
+      <img src="/static/icons/heatmap.png">
+      <h4>Heatmap Detection</h4>
+      <p>Visually highlights manipulated pixel regions.</p>
+    </div>
+    <div class="feature-card">
+      <img src="/static/icons/face.png">
+      <h4>Face Localization</h4>
+      <p>YOLO-based face tampering detection.</p>
+    </div>
+    <div class="feature-card">
+      <img src="/static/icons/report.png">
+      <h4>PDF Report</h4>
+      <p>Download complete forensic analysis instantly.</p>
+    </div>
+  </div>
+</section>
+<!-- FEEDBACK -->
+<section class="section feedback-section fade" id="feedback">
+  <div class="feedback-card">
+    <h2>Feedback</h2>
+    <p class="feedback-sub">
+      Share your experience and help us improve <b>ForgeVision</b>.
+    </p>
+    <form class="feedback-form">
+      <div class="row two-col">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+      </div>
+      <div class="row">
+        <select required>
+          <option value="">Purpose of Use</option>
+          <option>Personal</option>
+          <option>Academic</option>
+          <option>Research</option>
+          <option>Professional</option>
+        </select>
+        <select required>
+          <option value="">Overall Experience</option>
+          <option>Excellent</option>
+          <option>Good</option>
+          <option>Average</option>
+        </select>
+      </div>
+      <textarea placeholder="Your Feedback (max 150 words)" maxlength="150"></textarea>
+      <button class="primary-btn">Submit Feedback</button>
+    </form>
+  </div>
+</section>
+    </form>
+  </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Forensic Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI';
+            background: linear-gradient(135deg,#0f172a,#1e293b);
+            color: white;
+            text-align: center;
+        }
+
+        h1 { margin-top: 20px; }
+
+        .container { padding: 20px; }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 12px;
+            width: 160px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 🔥 SPEED METER */
+        .meter {
+            width: 220px;
+            height: 110px;
+            border-top-left-radius: 110px;
+            border-top-right-radius: 110px;
+            background: linear-gradient(90deg, green, yellow, red);
+            margin: 30px auto;
+            position: relative;
+        }
+
+        .needle {
+            width: 4px;
+            height: 100px;
+            background: white;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform-origin: bottom center;
+        }
+
+        /* 📊 IMAGE GRID */
+        .images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .img-box {
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+
+        ul {
+            text-align: left;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        a {
+            background: #38bdf8;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🧠 AI Forensic Dashboard</h1>
+
+<div class="container">
+
+    <!-- 🔥 CARDS -->
+    <div class="stats">
+        <div class="card"><h3>Prediction</h3><p>{{ prediction }}</p></div>
+        <div class="card"><h3>Forgery %</h3><p>{{ percent }}%</p></div>
+        <div class="card"><h3>Confidence</h3><p>{{ confidence }}</p></div>
+        <div class="card"><h3>Regions</h3><p>{{ regions }}</p></div>
+    </div>
+
+    <!-- 🔥 SPEED METER -->
+    <h3>Forgery Score Meter</h3>
+    <div class="meter">
+        <div class="needle" id="needle"></div>
+    </div>
+
+    <!-- 📊 GRAPH -->
+    <h3>📊 Analysis Graph</h3>
+    <canvas id="chart"></canvas>
+
+    <!-- 📋 EXPLANATION -->
+    <h3>📋 Explanation</h3>
+    <ul>
+        {% for exp in region_details %}
+            <li>{{ exp }}</li>
+        {% endfor %}
+    </ul>
+
+    <!-- 🖼️ IMAGES -->
+    <h3>🖼️ Visual Evidence</h3>
+    <div class="images">
+
+        <div class="img-box">
+            <h4>Original</h4>
+            <img src="/outputs/single.png" onclick="zoom(this)">
+        </div>
+
+        <div class="img-box">
+            <h4>ELA</h4>
+            <img src="/outputs/ela.png" onclick="zoom(this)">
+        </div>
+
+        <div class="img-box">
+            <h4>Heatmap 🔥</h4>
+            <img src="/outputs/heatmap.png" onclick="zoom(this)">
+        </div>
+
+        <div class="img-box">
+            <h4>Overlay</h4>
+            <img src="/outputs/result.png" onclick="zoom(this)">
+        </div>
+
+    </div>
+
+    <br>
+    <a href="/detect">⬅ Upload Another</a>
+
+</div>
+
+<script>
+/* 🔥 SPEED METER FIX */
+let score = {{ percent }};  // or use score if passed
+let angle = (score / 100) * 180;
+
+document.getElementById("needle").style.transform = `rotate(${angle}deg)`;
+
+/* 📊 CHART */
+new Chart(document.getElementById('chart'), {
+    type: 'bar',
+    data: {
+        labels: ['Forgery %', 'Regions'],
+        datasets: [{
+            label: 'Analysis',
+            data: [{{ percent }}, {{ regions }}],
+            backgroundColor: ['#ef4444','#3b82f6']
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+
+/* 🔍 ZOOM */
+function zoom(img){
+    let m=document.createElement("div");
+    m.style="position:fixed;top:0;left:0;width:100%;height:100%;background:black;display:flex;align-items:center;justify-content:center;";
+    let i=document.createElement("img");
+    i.src=img.src;
+    i.style="max-width:90%;max-height:90%";
+    m.appendChild(i);
+    m.onclick=()=>document.body.removeChild(m);
+    document.body.appendChild(m);
+}
+</script>
+
+</body>
+</html>

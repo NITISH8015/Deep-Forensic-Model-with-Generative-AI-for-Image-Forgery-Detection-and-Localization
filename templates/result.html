@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Forgery Detection Result</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-left">
+    <span class="logo-text">ForgeVision</span>
+  </div>
+
+  <div class="nav-center">
+    <a href="/detect">Compare Again</a>
+  </div>
+
+  <div class="nav-right">
+    <a href="/logout" class="btn danger">Logout</a>
+  </div>
+</nav>
+
+<!-- MAIN SECTION -->
+<section class="section fade">
+  <h1 class="page-title">Forgery Detection Result</h1>
+
+  <!-- IMAGE GRID -->
+  <div class="image-grid">
+
+    <div class="card image-card">
+      <h3>Original Image</h3>
+      <img src="{{ url_for('outputs', f=original) }}" alt="Original Image">
+    </div>
+
+    <div class="card image-card">
+      <h3>Forged Image</h3>
+      <img src="{{ url_for('outputs', f=forged) }}" alt="Forged Image">
+    </div>
+
+    <div class="card image-card">
+      <h3>Difference Map</h3>
+      <img src="{{ url_for('outputs', f=diff) }}" alt="Difference Map">
+    </div>
+
+    <div class="card image-card">
+      <h3>Localized Edits</h3>
+      <img src="{{ url_for('outputs', f=boxed) }}" alt="Localized Edits">
+    </div>
+
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="card summary-card">
+    <h2>Detection Summary</h2>
+
+    <div class="summary-grid">
+      <p><b>Total Edited Regions:</b> {{ regions }}</p>
+      <p><b>Pixels Modified:</b> {{ percent }}%</p>
+      <p><b>SSIM Score:</b> {{ ssim }}</p>
+    </div>
+
+    <!-- CONFIDENCE -->
+    <div class="confidence-box">
+      <span class="confidence 
+        {% if percent > 60 %}high
+        {% elif percent > 30 %}medium
+        {% else %}low{% endif %}">
+
+        {% if percent > 60 %}
+          High Forgery Detected
+        {% elif percent > 30 %}
+          Medium Forgery Detected
+        {% else %}
+          Low Forgery Detected
+        {% endif %}
+
+      </span>
+    </div>
+
+    <!-- EXPLAIN BUTTON -->
+    <button class="btn" onclick="toggleExplain()">Explain Result</button>
+
+    <!-- EXPLANATION BOX -->
+    <div id="explainBox" class="explain-box hidden">
+
+      <h4>What does this mean?</h4>
+      <p>
+        Our system compared both images and detected noticeable visual and
+        structural differences that indicate possible image manipulation.
+      </p>
+
+      <h4>Detected Changes</h4>
+      <ul>
+        {% for r in region_details %}
+          <li>{{ r }}</li>
+        {% endfor %}
+      </ul>
+
+      <h4>How to read the images?</h4>
+      <ul>
+        <li><b>Difference Map:</b> Bright areas indicate pixel changes</li>
+        <li><b>Red Boxes:</b> Strongly modified regions</li>
+        <li><b>Yellow Box:</b> Face-level manipulation (if detected)</li>
+      </ul>
+
+    </div>
+
+    <!-- DOWNLOAD -->
+    <a href="/download-report" class="btn secondary">
+      📄 Download PDF Report
+    </a>
+
+  </div>
+
+</section>
+
+</body>
+</html>

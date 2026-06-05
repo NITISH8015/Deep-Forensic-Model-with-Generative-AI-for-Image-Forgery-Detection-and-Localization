@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Signup</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body class="auth-bg">
+<div class="auth-wrapper fade">
+  <div class="auth-card glass">
+    <h2 class="auth-title">ForgeVision</h2>
+    <p class="auth-sub">Secure Image Forgery Analysis Platform</p>
+    <div class="auth-tabs">
+      <button id="loginTab" class="active" onclick="showLogin()">Login</button>
+      <button id="signupTab" onclick="showSignup()">Signup</button>
+    </div>
+    <!-- LOGIN -->
+    <form id="loginForm" method="POST">
+      <input name="username" placeholder="Username" required>
+      <input name="password" type="password" placeholder="Password" required>
+      <button class="primary-btn glow-btn">Login</button>
+    </form>
+    <!-- SIGNUP -->
+    <form id="signupForm" method="POST" action="/signup" style="display:none">
+      <input name="username" placeholder="Username" required>
+      <input name="email" type="email" placeholder="Email" required>
+      <input name="password" type="password" placeholder="Password (min 8 chars)" required>
+      <button class="primary-btn glow-btn">Create Account</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

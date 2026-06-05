@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Compare Images | ForgeVision</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="/" class="logo-text">ForgeVision</a>
+  <div class="nav-links">
+    <a href="/">Home</a>
+    <a href="/logout" class="btn danger">Logout</a>
+  </div>
+</nav>
+<!-- UPLOAD SECTION -->
+<section class="section fade" id="compare">
+  <div class="card upload-card">
+    <h2 class="upload-title">Upload Images for Comparison</h2>
+    <p class="upload-sub">
+      Select the <b>original</b> and <b>suspected forged</b> images to analyze manipulation.
+    </p>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <div class="upload-grid">
+        <label class="file-box">
+          <span class="file-icon">📷</span>
+          <span class="file-text">Original Image</span>
+          <input type="file" name="original" required>
+        </label>
+        <label class="file-box">
+          <span class="file-icon">🧩</span>
+          <span class="file-text">Forged Image</span>
+          <input type="file" name="forged" required>
+        </label>
+      </div>
+      <button class="primary-btn glow-btn">
+        🔍 Compare Images
+      </button>
+    </form>
+  </div>
+</section>
+<!-- SINGLE IMAGE DETECTION -->
+<section class="section fade" id="single">
+  <div class="card upload-card">
+    <h2 class="upload-title">Single Image Forgery Detection</h2>
+    <p class="upload-sub">
+      Upload a single image to analyze forgery using AI (ELA + CNN + U-Net)
+    </p>
+
+    <form action="/single-detect" method="post" enctype="multipart/form-data">
+      <div class="upload-grid" style="grid-template-columns:1fr;">
+        <label class="file-box">
+          <span class="file-icon">🖼️</span>
+          <span class="file-text">Upload Image</span>
+          <input type="file" name="image" required>
+        </label>
+      </div>
+
+      <button class="primary-btn glow-btn">
+        🔍 Analyze Image
+      </button>
+    </form>
+  </div>
+</section>
+</body>
+</html>
