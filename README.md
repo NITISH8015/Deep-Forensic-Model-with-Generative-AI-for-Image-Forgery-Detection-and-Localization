@@ -1,20 +1,36 @@
-# 🧠 Tourist Customer Review & Image Analysis System
+# 🧠 Image Forgery Detection Using Deep Learning and Generative AI
 
-A web-based application that allows users to analyze and compare tourist-related images using AI/ML techniques. The platform provides image authenticity checking, image comparison, user authentication, and feedback collection features.
+Image Forgery Detection is an AI-driven system designed to identify manipulated, forged, and AI-generated images using advanced Deep Learning and Computer Vision techniques. With the rapid growth of image editing software and generative AI models, distinguishing authentic images from fabricated content has become increasingly challenging.
 
----
+This project leverages Machine Learning, Deep Learning, and Generative AI methodologies to analyze visual patterns, inconsistencies, metadata, and hidden artifacts within digital images. The system is capable of detecting image tampering, synthetic image generation, and other forms of digital manipulation that may not be visible to the human eye.
 
-# 📌 Features
+The primary objective of this project is to enhance digital trust by providing an automated solution for image authenticity verification. Such a system can support applications in digital forensics, cybersecurity, journalism, social media monitoring, legal investigations, and misinformation detection.
 
-- User Authentication (Login & Signup)
-- Single Image Analysis
-- Dual Image Comparison
-- AI-Based Similarity Detection
-- Result Visualization
-- User Feedback System
-- Responsive User Interface
+## Key Features
 
----
+* AI-Based Image Forgery Detection
+* Deep Learning-Powered Image Classification
+* Detection of Manipulated and AI-Generated Images
+* Computer Vision-Based Feature Extraction
+* Automated Authenticity Verification
+* User-Friendly Web Interface
+* Secure User Authentication
+* Real-Time Image Analysis and Prediction
+
+## Technologies Used
+
+* Python
+* TensorFlow / Keras
+* OpenCV
+* NumPy & Pandas
+* Deep Learning
+* Generative AI
+* Computer Vision
+* Flask / Streamlit
+
+## Project Objective
+
+To develop an intelligent and reliable image authentication system that detects forged and AI-generated images with high accuracy, helping organizations and individuals verify the authenticity of digital content and reduce the spread of misinformation.
 
 # 🏠 Home Page
 
